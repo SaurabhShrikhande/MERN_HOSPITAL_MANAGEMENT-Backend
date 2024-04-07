@@ -101,21 +101,31 @@ export const getUserDetails = catchAsyncErrors(async(req,res,next) =>{
 
 
 export const logoutAdmin = catchAsyncErrors(async(req,res,next) => {
-    res.status(200).cookie("adminToken" , null /* or "" (empty string)  */).json({
-        httpOnly : true,
-
-        success : true,
-        message : "Admin Log out successfully!"
+    res
+    .status(201)
+    .cookie("adminToken", "", {
+      httpOnly: true,
+      expires: new Date(Date.now()),
     })
-})
+    .json({
+      success: true,
+      message: "Admin Logged Out Successfully.",
+    });
+});
+
 
 export const logoutPatient = catchAsyncErrors(async(req,res,next) => {
-    res.status(200).cookie("patientToken" , null /* or "" (empty string)  */).json({
-        httpOnly : true,  
-        success : true,
-        message : "User Log out successfully!"
+    res
+    .status(201)
+    .cookie("patientToken", "", {
+      httpOnly: true,
+      expires: new Date(Date.now()),
     })
-})
+    .json({
+      success: true,
+      message: "Patient Logged Out Successfully.",
+    });
+});
 
 export const addNewDoctor = catchAsyncErrors(async(req,res,next) => {
     if(!req.files || Object.keys(req.files).length === 0){
